@@ -45,12 +45,12 @@ conda activate tempcca
 
 ### Training and Inference
 
-For continuous **training** (for each timestep 230820, 231020), use the following command:
+For **training** (for each timestep 230820, 231020), use the following command:
 ```
 PYTHONPATH='.' python blink/biencoder/proposed_train.py --bert_model=bert-base-cased --data_path=data/tempcca/processed/{timestep} --output_path=models/trained/tempcca_mst/{timestep} --pickle_src_path=models/trained/tempcca/{timestep} --path_to_model=models/trained/tempcca_mst/{prev_timestep}/epoch_4/pytorch_model.bin --num_train_epochs=5 --train_batch_size=32 --gradient_accumulation_steps=4 --eval_interval=10000 --pos_neg_loss --force_exact_search --embed_batch_size=1000 --data_parallel --path_to_prev_gold=models/trained/tempcca_mst/{prev_timestep} --alpha=0.8
 ```
 
-For continuous **inference** (for each timestep 231220, 240220, 240420), use the following command:
+For **inference** (for each timestep 231220, 240220, 240420), use the following command:
 ```
 PYTHONPATH='.' python blink/biencoder/eval_cluster_linking.py --bert_model=bert-base-cased --data_path=data/tempcca/processed/{timestep} --output_path=models/trained/tempcca_mst/eval/{timestep} --pickle_src_path=models/trained/tempcca/eval/{timestep} --path_to_model=models/trained/tempcca_mst/231020/epoch_4/pytorch_model.bin --recall_k=64 --embed_batch_size=1000 --force_exact_search --data_parallel --path_to_prev_gold=models/trained/tempcca_mst/231020 --alpha=0.8
 ```
